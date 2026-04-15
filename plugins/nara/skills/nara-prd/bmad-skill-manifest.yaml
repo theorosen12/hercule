@@ -1,0 +1,7 @@
+type: workflow
+name: nara-prd
+displayName: Nara PRD (Phase 2)
+icon: "📋"
+description: "Data-informed PRD using Pendo brief + full 12-step BMAD workflow. Produces prd.md."
+module: nara
+phase: "2"

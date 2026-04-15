@@ -1,0 +1,7 @@
+type: workflow
+name: nara-qa
+displayName: Nara QA (Phase 7)
+icon: "🧪"
+description: "Edge case hunt + Maestro E2E test generation + QA checklist from all story ACs."
+module: nara
+phase: "7"

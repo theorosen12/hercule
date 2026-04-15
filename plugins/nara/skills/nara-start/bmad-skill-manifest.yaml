@@ -1,0 +1,7 @@
+type: workflow
+name: nara-start
+displayName: Nara Start (Phase 0)
+icon: "🚀"
+description: "Pull feature context from a Linear issue and produce context.md."
+module: nara
+phase: "0"

@@ -1,0 +1,7 @@
+type: workflow
+name: nara-arch
+displayName: Nara Architecture (Phase 4)
+icon: "🏗️"
+description: "Epic-level architecture — all Prisma, TypeScript, GraphQL decisions made upfront. Produces architecture.md."
+module: nara
+phase: "4"

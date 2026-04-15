@@ -1,0 +1,7 @@
+type: workflow
+name: nara-ux
+displayName: Nara UX Design (Phase 3)
+icon: "🎨"
+description: "14-step BMAD UX design + Nara Storybook component mapping. Produces ux-spec.md."
+module: nara
+phase: "3"

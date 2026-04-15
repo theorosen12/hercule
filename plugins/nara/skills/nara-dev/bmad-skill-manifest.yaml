@@ -1,0 +1,7 @@
+type: workflow
+name: nara-dev
+displayName: Nara Dev (Phase 6)
+icon: "💻"
+description: "Implement a single story. Zero design decisions. Mandatory code review gate before marking Done."
+module: nara
+phase: "6"

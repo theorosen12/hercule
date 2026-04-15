@@ -1,0 +1,9 @@
+{
+  "name": "nara",
+  "version": "1.0.0",
+  "description": "Nara E2E pipeline — 9-phase product-tech workflow from Linear issue to release, built for the Nara app (React Native + NestJS + Prisma + GraphQL)",
+  "author": {
+    "name": "theorosen12",
+    "url": "https://github.com/theorosen12"
+  }
+}

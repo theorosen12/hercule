@@ -1,0 +1,7 @@
+type: workflow
+name: nara-stories
+displayName: Nara Stories (Phase 5)
+icon: "📝"
+description: "Derive implementation-ready stories from architecture.md. Hard blocking readiness gate + Linear population."
+module: nara
+phase: "5"

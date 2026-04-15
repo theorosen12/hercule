@@ -1,0 +1,7 @@
+type: workflow
+name: nara-brainstorm
+displayName: Nara Brainstorm (Phase 1)
+icon: "💡"
+description: "Ideation session with Pendo signals and optional research. Produces brainstorm.md."
+module: nara
+phase: "1"

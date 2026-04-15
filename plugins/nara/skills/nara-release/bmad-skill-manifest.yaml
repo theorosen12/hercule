@@ -1,0 +1,7 @@
+type: workflow
+name: nara-release
+displayName: Nara Release (Phase 8)
+icon: "🚢"
+description: "Release notes + Pendo tracking setup + Linear closeout + full retrospective."
+module: nara
+phase: "8"

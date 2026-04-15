@@ -1,0 +1,19 @@
+{
+  "name": "hercule",
+  "owner": {
+    "name": "theorosen12",
+    "url": "https://github.com/theorosen12"
+  },
+  "plugins": [
+    {
+      "name": "bmad",
+      "source": "./plugins/bmad",
+      "description": "The complete BMAD method — agents, planning, development, testing, and creative intelligence skills"
+    },
+    {
+      "name": "nara",
+      "source": "./plugins/nara",
+      "description": "Nara E2E pipeline — 9-phase product-tech workflow from Linear issue to release, built for the Nara app (React Native + NestJS + Prisma + GraphQL)"
+    }
+  ]
+}
