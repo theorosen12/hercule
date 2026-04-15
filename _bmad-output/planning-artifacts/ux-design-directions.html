@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Narative Subscription — Design Directions</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  background: linear-gradient(160deg, #c9d6f5 0%, #dde8f8 40%, #e8f0fb 100%);
+  min-height: 100vh;
+  padding: 60px 40px 80px;
+}
+
+h1 { text-align: center; font-size: 30px; font-weight: 800; color: #1a1a3e; letter-spacing: -0.8px; margin-bottom: 6px; }
+.subtitle { text-align: center; color: #6e7a9a; font-size: 14px; margin-bottom: 56px; }
+
+.grid { display: flex; gap: 52px; justify-content: center; flex-wrap: wrap; }
+
+.phone-wrap { display: flex; flex-direction: column; align-items: center; }
+.dir-num { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #8a94b8; margin-bottom: 8px; }
+.dir-name { font-size: 16px; font-weight: 700; color: #1a1a3e; margin-bottom: 4px; }
+.dir-desc { font-size: 12px; color: #8a94b8; text-align: center; max-width: 280px; line-height: 1.5; margin-bottom: 20px; }
+.badge-selected { display: inline-block; background: #4f5bd5; color: #fff; font-size: 10px; font-weight: 800; padding: 3px 12px; border-radius: 20px; margin-bottom: 10px; letter-spacing: 0.8px; text-transform: uppercase; }
+
+/* iPhone frame */
+.iphone {
+  width: 290px; height: 600px;
+  background: #1c1c1e;
+  border-radius: 50px;
+  padding: 10px;
+  position: relative;
+  box-shadow:
+    0 0 0 1px #3a3a3c,
+    inset 0 0 0 1px #000,
+    0 50px 100px rgba(60,80,160,0.25),
+    0 20px 40px rgba(0,0,0,0.2);
+}
+/* Volume buttons */
+.iphone::before {
+  content: '';
+  position: absolute;
+  left: -4px; top: 108px;
+  width: 4px; height: 34px;
+  background: #3a3a3c; border-radius: 3px 0 0 3px;
+  box-shadow: 0 46px 0 #3a3a3c;
+}
+/* Power button */
+.iphone::after {
+  content: '';
+  position: absolute;
+  right: -4px; top: 148px;
+  width: 4px; height: 64px;
+  background: #3a3a3c; border-radius: 0 3px 3px 0;
+}
+.screen {
+  width: 100%; height: 100%;
+  border-radius: 42px;
+  overflow: hidden;
+  position: relative;
+}
+.dynamic-island {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  width: 88px; height: 26px;
+  background: #000; border-radius: 20px; z-index: 30;
+}
+.status {
+  position: absolute; top: 0; left: 0; right: 0; height: 48px;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 22px 8px; z-index: 20; font-size: 13px; font-weight: 700;
+}
+
+
+/* ── DIRECTION A: Light / Zoe-Inspired ── */
+.sa .screen { background: #fff; }
+.sa .status { color: #1c1c1e; }
+.sa .hero-gradient {
+  position: absolute; top: 0; left: 0; right: 0; height: 280px;
+  background: linear-gradient(180deg, #c4d0f5 0%, #dde8fb 60%, #fff 100%);
+}
+.sa .cards-area {
+  position: absolute; top: 56px; left: 0; right: 0; padding: 0 16px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.sa .cards-row { display: flex; gap: 8px; }
+.sa .fcard {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(60,80,160,0.1), 0 1px 4px rgba(0,0,0,0.06);
+  padding: 10px 12px;
+  flex: 1; display: flex; align-items: center; gap: 8px;
+}
+.sa .fcard-icon { font-size: 18px; }
+.sa .fcard-text { font-size: 12px; font-weight: 700; color: #1c1c1e; line-height: 1.2; }
+.sa .fcard-sub { font-size: 10px; color: #888; }
+.sa .fcard-wide {
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(60,80,160,0.1), 0 1px 4px rgba(0,0,0,0.06);
+  padding: 10px 14px;
+  display: flex; align-items: center; gap: 10px; width: 100%;
+}
+.sa .fcard-wide-icon { font-size: 22px; }
+.sa .fcard-wide-body { }
+.sa .fcard-wide-title { font-size: 12px; font-weight: 700; color: #1c1c1e; }
+.sa .fcard-wide-sub { font-size: 11px; color: #888; margin-top: 1px; }
+.sa .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; width: 36px; height: 36px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+.sa .mg1 { background: linear-gradient(135deg,#667eea,#764ba2); }
+.sa .mg2 { background: linear-gradient(135deg,#f093fb,#f5576c); }
+.sa .mg3 { background: linear-gradient(135deg,#4facfe,#00f2fe); }
+.sa .mg4 { background: linear-gradient(135deg,#43e97b,#38f9d7); }
+
+.sa .avatars-section {
+  position: absolute; top: 248px; left: 0; right: 0;
+  display: flex; justify-content: center; align-items: center; gap: 0; padding: 0 20px;
+}
+.sa .av-bubble {
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+}
+.sa .av-bubble:not(:first-child) { margin-left: -10px; }
+.sa .avb1 { background: linear-gradient(135deg, #fce4ec, #f8bbd9); z-index: 3; }
+.sa .avb2 { background: linear-gradient(135deg, #e3f2fd, #bbdefb); z-index: 2; }
+.sa .avb3 { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); z-index: 1; }
+.sa .avb4 { background: linear-gradient(135deg, #fff8e1, #ffecb3); z-index: 0; }
+
+.sa .text-section {
+  position: absolute; top: 306px; left: 0; right: 0;
+  text-align: center; padding: 0 24px;
+}
+.sa .nara-title { font-size: 24px; font-weight: 900; color: #1a1a3e; letter-spacing: -0.8px; margin-bottom: 5px; }
+.sa .nara-sub { font-size: 13px; color: #6e7a9a; line-height: 1.4; }
+
+.sa .cta-area {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 16px 20px 28px; background: #fff;
+}
+.sa .btn-main {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, #4f5bd5, #667eea);
+  color: #fff; border: none; border-radius: 100px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(79,91,213,0.35);
+  margin-bottom: 10px; letter-spacing: -0.2px;
+}
+.sa .btn-ghost {
+  width: 100%; padding: 10px;
+  background: transparent; color: #888;
+  border: none; font-size: 13px; cursor: pointer;
+}
+
+
+/* ── DIRECTION B: Dark / Bottom Sheet ── */
+.sb .screen { background: #111; }
+.sb .status { color: #fff; }
+.sb .bg-grid {
+  position: absolute; inset: 0 0 270px 0;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr 1fr;
+  filter: blur(3px) brightness(0.45);
+}
+.sb .bg-grid > div { flex: 1; }
+.sb .g1 { background: linear-gradient(135deg,#667eea,#764ba2); }
+.sb .g2 { background: linear-gradient(135deg,#f093fb,#f5576c); }
+.sb .g3 { background: linear-gradient(135deg,#4facfe,#00f2fe); }
+.sb .g4 { background: linear-gradient(135deg,#43e97b,#38f9d7); }
+.sb .g5 { background: linear-gradient(135deg,#fa709a,#fee140); }
+.sb .g6 { background: linear-gradient(135deg,#a18cd1,#fbc2eb); }
+.sb .g7 { background: linear-gradient(135deg,#f7971e,#ffd200); }
+.sb .g8 { background: linear-gradient(135deg,#56ab2f,#a8e063); }
+.sb .g9 { background: linear-gradient(135deg,#ee9ca7,#ffdde1); }
+.sb .sheet {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 290px;
+  background: #1c1c1e; border-radius: 26px 26px 0 0;
+  padding: 10px 18px 20px; display: flex; flex-direction: column;
+}
+.sb .handle { width: 36px; height: 4px; background: #3a3a3c; border-radius: 2px; margin: 0 auto 14px; }
+.sb .sh-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.sb .sh-cover { width: 46px; height: 46px; border-radius: 12px; background: linear-gradient(135deg,#2d4a3e,#1a5c4a); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.sb .sh-info h2 { font-size: 15px; font-weight: 800; color: #fff; letter-spacing: -0.3px; }
+.sb .sh-info p { font-size: 11px; color: #888; margin-top: 1px; }
+.sb .pills { display: flex; gap: 5px; margin-bottom: 12px; flex-wrap: wrap; }
+.sb .pill { padding: 3px 9px; background: #2c2c2e; border-radius: 20px; font-size: 10px; color: #aaa; }
+.sb .mbar { display: flex; align-items: center; gap: 6px; padding: 9px 11px; background: #2c2c2e; border-radius: 12px; margin-bottom: 14px; }
+.sb .ma { width: 22px; height: 22px; border-radius: 50%; }
+.sb .ma:not(:first-child) { margin-left: -4px; }
+.sb .ma1 { background: linear-gradient(135deg,#f093fb,#f5576c); }
+.sb .ma2 { background: linear-gradient(135deg,#4facfe,#00f2fe); }
+.sb .ma3 { background: linear-gradient(135deg,#43e97b,#38f9d7); }
+.sb .ma-t { font-size: 10px; color: #aaa; margin-left: 4px; }
+.sb .sp { flex: 1; }
+.sb .sb-btn-p { width: 100%; padding: 14px; background: #fff; color: #000; border: none; border-radius: 14px; font-size: 14px; font-weight: 900; margin-bottom: 7px; cursor: pointer; }
+.sb .sb-btn-s { width: 100%; padding: 10px; background: transparent; color: #666; border: 1px solid #2c2c2e; border-radius: 12px; font-size: 12px; cursor: pointer; }
+
+
+/* ── DIRECTION C: Split Light ── */
+.sc .screen { background: #f8f9ff; }
+.sc .status { color: #1c1c1e; }
+.sc .top-cover {
+  position: absolute; top: 0; left: 0; right: 0; height: 230px;
+  background: linear-gradient(160deg, #4f5bd5 0%, #667eea 50%, #a78bfa 100%);
+  overflow: hidden;
+}
+.sc .top-cover-pattern {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 40%);
+}
+.sc .cover-emoji-big { position: absolute; top: 56px; left: 0; right: 0; text-align: center; font-size: 52px; }
+.sc .cover-fade { position: absolute; bottom: 0; left: 0; right: 0; height: 56px; background: linear-gradient(transparent, #f8f9ff); }
+.sc .info-area {
+  position: absolute; top: 218px; left: 0; right: 0; bottom: 0;
+  padding: 0 16px; display: flex; flex-direction: column;
+}
+.sc .nara-t { font-size: 20px; font-weight: 900; color: #1a1a3e; letter-spacing: -0.5px; margin-bottom: 3px; text-align: center; }
+.sc .nara-s { font-size: 12px; color: #8a94b8; text-align: center; margin-bottom: 12px; }
+.sc .sc-pills { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+.sc .sc-pill { padding: 4px 10px; background: #eef0ff; border-radius: 20px; font-size: 11px; color: #4f5bd5; font-weight: 600; }
+.sc .sc-avs { display: flex; justify-content: center; gap: 0; margin-bottom: 14px; }
+.sc .sc-av { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #f8f9ff; }
+.sc .sc-av:not(:first-child) { margin-left: -8px; }
+.sc .sc-av1 { background: linear-gradient(135deg,#f093fb,#f5576c); }
+.sc .sc-av2 { background: linear-gradient(135deg,#4facfe,#00f2fe); }
+.sc .sc-av3 { background: linear-gradient(135deg,#43e97b,#38f9d7); }
+.sc .sc-av-more { background: #eef0ff; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #4f5bd5; font-weight: 700; }
+.sc .sc-av-label { font-size: 11px; color: #8a94b8; margin-left: 8px; align-self: center; }
+.sc .sp { flex: 1; }
+.sc .sc-cta { padding: 0 0 24px; }
+.sc .sc-btn-p { width: 100%; padding: 15px; background: linear-gradient(135deg,#4f5bd5,#667eea); color: #fff; border: none; border-radius: 100px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(79,91,213,0.3); margin-bottom: 10px; }
+.sc .sc-btn-s { width: 100%; padding: 10px; background: transparent; color: #8a94b8; border: none; font-size: 12px; cursor: pointer; }
+
+
+/* Status icons SVG snippet (white + dark variants) */
+.icons-w { fill: white; }
+.icons-d { fill: #1c1c1e; }
+
+
+/* Comparison */
+.compare { max-width: 900px; margin: 64px auto 0; background: #fff; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 32px rgba(60,80,160,0.12); }
+.compare h2 { font-size: 18px; font-weight: 800; color: #1a1a3e; padding: 20px 24px 16px; border-bottom: 1px solid #f0f0f8; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { padding: 12px 16px; text-align: left; color: #8a94b8; font-weight: 600; background: #f8f9ff; border-bottom: 1px solid #f0f0f8; }
+td { padding: 11px 16px; border-bottom: 1px solid #f8f8fb; color: #444; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+.tg { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #e8f5e9; color: #2e7d32; }
+.ty { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #fff8e1; color: #f57f17; }
+.tb { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #e3f2fd; color: #1565c0; }
+.tp { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; background: #ede7f6; color: #4527a0; }
+</style>
+</head>
+<body>
+
+<h1>Narative Entry Screen</h1>
+<p class="subtitle">3 design directions · React Native · Portrait · Nara</p>
+
+<div class="grid">
+
+  <!-- A: Light / Zoe-Inspired -->
+  <div class="phone-wrap">
+    <div class="badge-selected">✓ Recommended</div>
+    <div class="dir-num">Direction A</div>
+    <div class="dir-name">Light — Floating Cards</div>
+    <div class="dir-desc">Gradient top, floating content preview cards, member avatar row, bold title + pill CTA. Inspired by Zoe.</div>
+    <div class="iphone sa">
+      <div class="screen">
+        <div class="dynamic-island"></div>
+        <div class="status">
+          <span>9:41</span>
+          <span style="display:flex;gap:5px;align-items:center">
+            <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="3" width="3" height="9" rx="1" fill="#1c1c1e"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#1c1c1e"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="#1c1c1e"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="#1c1c1e"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.4C10.5 2.4 12.7 3.5 14.2 5.2L15.5 3.7C13.6 1.7 11 0.5 8 0.5C5 0.5 2.4 1.7 0.5 3.7L1.8 5.2C3.3 3.5 5.5 2.4 8 2.4Z" fill="#1c1c1e"/><path d="M8 5.3C9.8 5.3 11.4 6.1 12.5 7.3L13.8 5.8C12.3 4.3 10.3 3.4 8 3.4C5.7 3.4 3.7 4.3 2.2 5.8L3.5 7.3C4.6 6.1 6.2 5.3 8 5.3Z" fill="#1c1c1e"/><circle cx="8" cy="10.5" r="1.5" fill="#1c1c1e"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#1c1c1e" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="#1c1c1e"/><path d="M23 4.5V7.5C23.8 7.2 24.5 6.4 24.5 6C24.5 5.6 23.8 4.8 23 4.5Z" fill="#1c1c1e" fill-opacity="0.4"/></svg>
+          </span>
+        </div>
+        <div class="hero-gradient"></div>
+        <div class="cards-area">
+          <div class="cards-row">
+            <div class="fcard">
+              <div class="mini-grid"><div class="mg1"></div><div class="mg2"></div><div class="mg3"></div><div class="mg4"></div></div>
+              <div><div class="fcard-text">47 moments</div><div class="fcard-sub">Photos & vidéos</div></div>
+            </div>
+            <div class="fcard">
+              <div class="fcard-icon">📅</div>
+              <div><div class="fcard-text">12 jours</div><div class="fcard-sub">Juil — Août 2025</div></div>
+            </div>
+          </div>
+          <div class="fcard-wide">
+            <div class="fcard-wide-icon">📍</div>
+            <div class="fcard-wide-body">
+              <div class="fcard-wide-title">Reykjavik, Islande</div>
+              <div class="fcard-wide-sub">Partagé par Emma · Accès lecture seule</div>
+            </div>
+          </div>
+        </div>
+        <div class="avatars-section">
+          <div class="av-bubble avb1">👩</div>
+          <div class="av-bubble avb2">👨‍🦱</div>
+          <div class="av-bubble avb3">👩‍🦰</div>
+          <div class="av-bubble avb4">🧑</div>
+        </div>
+        <div class="text-section">
+          <div class="nara-title">Islande — Été 2025</div>
+          <div class="nara-sub">Découvre les souvenirs d'Emma et ses amis</div>
+        </div>
+        <div class="cta-area">
+          <button class="btn-main">S'abonner · Accès gratuit</button>
+          <button class="btn-ghost">Demander à rejoindre comme membre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- B: Dark / Bottom Sheet -->
+  <div class="phone-wrap">
+    <div style="height:30px"></div>
+    <div class="dir-num">Direction B</div>
+    <div class="dir-name">Dark — Bottom Sheet</div>
+    <div class="dir-desc">Blurred moment grid background, bottom sheet card. High CTA contrast, layered depth.</div>
+    <div class="iphone sb">
+      <div class="screen">
+        <div class="dynamic-island"></div>
+        <div class="status">
+          <span>9:41</span>
+          <span style="display:flex;gap:5px;align-items:center">
+            <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="3" width="3" height="9" rx="1" fill="white"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="white"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="white"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.4C10.5 2.4 12.7 3.5 14.2 5.2L15.5 3.7C13.6 1.7 11 0.5 8 0.5C5 0.5 2.4 1.7 0.5 3.7L1.8 5.2C3.3 3.5 5.5 2.4 8 2.4Z" fill="white"/><path d="M8 5.3C9.8 5.3 11.4 6.1 12.5 7.3L13.8 5.8C12.3 4.3 10.3 3.4 8 3.4C5.7 3.4 3.7 4.3 2.2 5.8L3.5 7.3C4.6 6.1 6.2 5.3 8 5.3Z" fill="white"/><circle cx="8" cy="10.5" r="1.5" fill="white"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="white"/><path d="M23 4.5V7.5C23.8 7.2 24.5 6.4 24.5 6C24.5 5.6 23.8 4.8 23 4.5Z" fill="white" fill-opacity="0.4"/></svg>
+          </span>
+        </div>
+        <div class="bg-grid">
+          <div class="g1"></div><div class="g2"></div><div class="g3"></div>
+          <div class="g4"></div><div class="g5"></div><div class="g6"></div>
+          <div class="g7"></div><div class="g8"></div><div class="g9"></div>
+        </div>
+        <div class="sheet">
+          <div class="handle"></div>
+          <div class="sh-header">
+            <div class="sh-cover">🏔️</div>
+            <div class="sh-info"><h2>Islande — Été 2025</h2><p>Partagé par Emma · 12 jours</p></div>
+          </div>
+          <div class="pills">
+            <span class="pill">📍 Reykjavik</span>
+            <span class="pill">47 moments</span>
+            <span class="pill">3 membres</span>
+          </div>
+          <div class="mbar">
+            <div class="ma ma1"></div><div class="ma ma2"></div><div class="ma ma3"></div>
+            <span class="ma-t">Emma, Jules et 1 autre</span>
+          </div>
+          <div class="sp"></div>
+          <button class="sb-btn-p">S'abonner · Accès gratuit</button>
+          <button class="sb-btn-s">Demander à rejoindre comme membre</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- C: Split Purple -->
+  <div class="phone-wrap">
+    <div style="height:30px"></div>
+    <div class="dir-num">Direction C</div>
+    <div class="dir-name">Split — Purple Hero</div>
+    <div class="dir-desc">Bold purple cover, clean white info card below. Stats, avatars, pill CTA. Clear and structured.</div>
+    <div class="iphone sc">
+      <div class="screen">
+        <div class="dynamic-island"></div>
+        <div class="status" style="color:#fff">
+          <span>9:41</span>
+          <span style="display:flex;gap:5px;align-items:center">
+            <svg width="17" height="12" viewBox="0 0 17 12"><rect x="0" y="3" width="3" height="9" rx="1" fill="white"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="white"/><rect x="9" y="0.5" width="3" height="11.5" rx="1" fill="white"/><rect x="13.5" y="0" width="3" height="12" rx="1" fill="white"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12"><path d="M8 2.4C10.5 2.4 12.7 3.5 14.2 5.2L15.5 3.7C13.6 1.7 11 0.5 8 0.5C5 0.5 2.4 1.7 0.5 3.7L1.8 5.2C3.3 3.5 5.5 2.4 8 2.4Z" fill="white"/><path d="M8 5.3C9.8 5.3 11.4 6.1 12.5 7.3L13.8 5.8C12.3 4.3 10.3 3.4 8 3.4C5.7 3.4 3.7 4.3 2.2 5.8L3.5 7.3C4.6 6.1 6.2 5.3 8 5.3Z" fill="white"/><circle cx="8" cy="10.5" r="1.5" fill="white"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="16" height="9" rx="2.5" fill="white"/><path d="M23 4.5V7.5C23.8 7.2 24.5 6.4 24.5 6C24.5 5.6 23.8 4.8 23 4.5Z" fill="white" fill-opacity="0.4"/></svg>
+          </span>
+        </div>
+        <div class="top-cover">
+          <div class="top-cover-pattern"></div>
+          <div class="cover-emoji-big">🏔️</div>
+          <div class="cover-fade"></div>
+        </div>
+        <div class="info-area">
+          <div class="nara-t">Islande — Été 2025</div>
+          <div class="nara-s">Partagé par Emma · Reykjavik · 12 jours</div>
+          <div class="sc-pills">
+            <span class="sc-pill">47 moments</span>
+            <span class="sc-pill">3 membres</span>
+          </div>
+          <div class="sc-avs" style="align-items:center">
+            <div class="sc-av sc-av1"></div>
+            <div class="sc-av sc-av2"></div>
+            <div class="sc-av sc-av3"></div>
+            <div class="sc-av sc-av-more">+1</div>
+            <span class="sc-av-label">Emma, Jules et 1 autre</span>
+          </div>
+          <div class="sp"></div>
+          <div class="sc-cta">
+            <button class="sc-btn-p">S'abonner · Accès gratuit</button>
+            <button class="sc-btn-s">Demander à rejoindre comme membre</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="compare">
+  <h2>Direction Comparison</h2>
+  <table>
+    <thead><tr><th>Criterion</th><th>A — Light / Floating Cards</th><th>B — Dark / Bottom Sheet</th><th>C — Split / Purple Hero</th></tr></thead>
+    <tbody>
+      <tr><td>Emotional pull</td><td><span class="tg">Highest</span> warm, inviting</td><td><span class="tb">High</span> teases content</td><td><span class="ty">Medium</span> structured</td></tr>
+      <tr><td>Nara brand fit</td><td><span class="tg">Best</span> memory-journal feel</td><td><span class="tb">Good</span> modern, dark</td><td><span class="ty">Good</span> clear but cooler</td></tr>
+      <tr><td>Content preview</td><td><span class="tg">Strong</span> floating cards</td><td><span class="tb">Implied</span> blurred grid</td><td><span class="ty">None</span> emoji only</td></tr>
+      <tr><td>CTA prominence</td><td><span class="tg">High</span> pill button</td><td><span class="tg">High</span> white on dark</td><td><span class="tg">High</span> gradient pill</td></tr>
+      <tr><td>Accessibility</td><td><span class="tg">Best</span> light, high contrast</td><td><span class="ty">OK</span> dark overlay</td><td><span class="tg">Good</span> clear hierarchy</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "enableAllProjectMcpServers": true,
+  "extraKnownMarketplaces": {
+    "pendo-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "pendo-io/claude-pendo-plugin"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "pendo-analytics@pendo-plugins": true
+  }
+}

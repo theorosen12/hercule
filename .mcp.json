@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "storybook": {
+      "command": "npx",
+      "args": ["@storybook/mcp"],
+      "cwd": "./mobile"
+    }
+  }
+}
