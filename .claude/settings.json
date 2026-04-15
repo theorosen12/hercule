@@ -6,9 +6,17 @@
         "source": "github",
         "repo": "pendo-io/claude-pendo-plugin"
       }
+    },
+    "hercule": {
+      "source": {
+        "source": "github",
+        "repo": "theorosen12/hercule"
+      }
     }
   },
   "enabledPlugins": {
-    "pendo-analytics@pendo-plugins": true
+    "pendo-analytics@pendo-plugins": true,
+    "bmad@hercule": true,
+    "nara@hercule": true
   }
 }
